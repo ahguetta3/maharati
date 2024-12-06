@@ -1,0 +1,105 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+    .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .stat-number {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #3498db;
+        margin: 10px 0;
+    }
+    .stat-label {
+        color: #666;
+        font-size: 1.1em;
+    }
+    .trend-up {
+        color: #27ae60;
+    }
+    .trend-down {
+        color: #e74c3c;
+    }
+    .chart-container {
+        margin-top: 20px;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .course-list {
+        margin-top: 20px;
+    }
+    .course-item {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .course-item:last-child {
+        border-bottom: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="stats-container">
+    <!-- إجمالي المستخدمين -->
+    <div class="stat-card">
+        <div class="stat-label">إجمالي المستخدمين</div>
+        <div class="stat-number">{{ stats.total_users }}</div>
+        <div class="trend-up">
+            +{{ stats.new_users_week }} هذا الأسبوع
+        </div>
+    </div>
+
+    <!-- إجمالي الدورات -->
+    <div class="stat-card">
+        <div class="stat-label">إجمالي الدورات</div>
+        <div class="stat-number">{{ stats.total_courses }}</div>
+        <div class="trend-up">
+            +{{ stats.new_courses_week }} هذا الأسبوع
+        </div>
+    </div>
+
+    <!-- الدورات النشطة -->
+    <div class="stat-card">
+        <div class="stat-label">الدورات النشطة</div>
+        <div class="stat-number">{{ stats.active_courses }}</div>
+        <div class="stat-label">من إجمالي {{ stats.total_courses }}</div>
+    </div>
+
+    <!-- متوسط تقدم الطلاب -->
+    <div class="stat-card">
+        <div class="stat-label">متوسط تقدم الطلاب</div>
+        <div class="stat-number">{{ stats.average_progress|floatformat:1 }}%</div>
+    </div>
+</div>
+
+<!-- أكثر الدورات نشاطاً -->
+<div class="chart-container">
+    <h2>أكثر الدورات نشاطاً</h2>
+    <div class="course-list">
+        {% for course in stats.top_courses %}
+        <div class="course-item">
+            <div>{{ course.title }}</div>
+            <div>{{ course.student_count }} طالب</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

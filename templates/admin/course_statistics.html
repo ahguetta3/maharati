@@ -1,0 +1,50 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/course_statistics.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="stats-container">
+    <div class="stats-header">
+        <h1>إحصائيات الدورة</h1>
+    </div>
+
+    <div class="stats-grid">
+        <!-- إجمالي الطلاب -->
+        <div class="stat-card">
+            <div class="stat-label">إجمالي الطلاب</div>
+            <div class="stat-number">{{ stats.total_students }}</div>
+        </div>
+
+        <!-- عدد الدروس -->
+        <div class="stat-card">
+            <div class="stat-label">عدد الدروس</div>
+            <div class="stat-number">{{ stats.total_lessons }}</div>
+        </div>
+
+        <!-- نسبة الإكمال -->
+        <div class="stat-card">
+            <div class="stat-label">نسبة إكمال الدورة</div>
+            <div class="stat-number">{{ stats.completion_rate|floatformat:1 }}%</div>
+        </div>
+    </div>
+
+    <!-- تقدم الطلاب -->
+    <div class="progress-list">
+        <h2>تقدم الطلاب</h2>
+        {% for progress in stats.student_progress %}
+        <div class="progress-item">
+            <div>{{ progress.student }}</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ progress.percentage }}%"></div>
+            </div>
+            <div>{{ progress.percentage }}%</div>
+            <div>آخر دخول: {{ progress.last_access|date:"j F Y" }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
