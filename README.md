@@ -1,6 +1,6 @@
 # مهارتي - منصة التعلم الرقمي العربية 
+![Uploading f.png…]()
 
-![Maharati Logo](https://placehold.co/600x200)
 
 ## عن مهارتي 
 
