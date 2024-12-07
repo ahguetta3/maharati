@@ -1,0 +1,88 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .dashboard-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+    .dashboard-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .stat-number {
+        font-size: 2em;
+        font-weight: bold;
+        color: #3498db;
+    }
+    .stat-label {
+        color: #666;
+        margin-top: 5px;
+    }
+    .recent-actions {
+        margin-top: 20px;
+    }
+    .action-list {
+        list-style: none;
+        padding: 0;
+    }
+    .action-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    .action-item:last-child {
+        border-bottom: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- إحصائيات عامة -->
+    <div class="dashboard-card">
+        <h2>إحصائيات عامة</h2>
+        <div class="stat-number">{{ total_users }}</div>
+        <div class="stat-label">إجمالي المستخدمين</div>
+        <div class="stat-number">{{ total_courses }}</div>
+        <div class="stat-label">إجمالي الدورات</div>
+        <div class="stat-number">{{ total_lessons }}</div>
+        <div class="stat-label">إجمالي الدروس</div>
+    </div>
+
+    <!-- آخر النشاطات -->
+    <div class="dashboard-card">
+        <h2>آخر النشاطات</h2>
+        <div class="recent-actions">
+            <ul class="action-list">
+                {% for entry in recent_actions %}
+                <li class="action-item">
+                    {{ entry.action_time|date:"j F Y H:i" }} - {{ entry.user }}: {{ entry.change_message }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- الدورات النشطة -->
+    <div class="dashboard-card">
+        <h2>الدورات النشطة</h2>
+        <div class="recent-actions">
+            <ul class="action-list">
+                {% for course in active_courses %}
+                <li class="action-item">
+                    {{ course.title }} - {{ course.students.count }} طالب
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}

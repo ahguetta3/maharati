@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="card-title mb-4">{{ course.title }}</h1>
+                    <p class="card-text">{{ course.description }}</p>
+
+                    {% if progress %}
+                        <div class="progress mb-3">
+                            <div class="progress-bar" role="progressbar" 
+                                 style="width: {{ progress.percentage }}%;" 
+                                 aria-valuenow="{{ progress.percentage }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
+                                {{ progress.percentage }}%
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <h2 class="mt-4 mb-3">الدروس</h2>
+                    <div class="list-group">
+                        {% for lesson in course.lesson_set.all %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">{{ lesson.title }}</h5>
+                                {% if progress and lesson in progress.completed_lessons.all %}
+                                    <span class="badge bg-success rounded-pill">تم الإكمال</span>
+                                {% else %}
+                                    <form method="post" action="{% url 'mark_lesson_complete' course.pk lesson.pk %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary btn-sm">إكمال الدرس</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% empty %}
+                            <div class="list-group-item">لا توجد دروس متاحة حالياً</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title">معلومات الدورة</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <strong>المدرس:</strong> {{ course.instructor.get_full_name }}
+                        </li>
+                        <li class="mb-2">
+                            <strong>عدد الدروس:</strong> {{ course.lesson_set.count }}
+                        </li>
+                        <li class="mb-2">
+                            <strong>تاريخ البدء:</strong> {{ course.created_at|date:"j F Y" }}
+                        </li>
+                    </ul>
+
+                    {% if not progress %}
+                        <form method="post" action="{% url 'enroll_course' course.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary w-100">التسجيل في الدورة</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

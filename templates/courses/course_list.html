@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- الدورات المسجل فيها -->
+    <h2 class="mb-4">دوراتي</h2>
+    {% if enrolled_courses %}
+    <div class="row">
+        {% for course in enrolled_courses %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                    <div class="mt-auto">
+                        <a href="{% url 'course_detail' course.pk %}" class="btn btn-primary">متابعة الدورة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>لم تسجل في أي دورة بعد.</p>
+    {% endif %}
+
+    <!-- الدورات المتاحة -->
+    <h2 class="mb-4 mt-5">الدورات المتاحة</h2>
+    {% if available_courses %}
+    <div class="row">
+        {% for course in available_courses %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                    <div class="mt-auto">
+                        <p class="card-text"><small class="text-muted">المدرب: {{ course.instructor.get_full_name|default:course.instructor.username }}</small></p>
+                        <p class="card-text">
+                            <small class="text-muted">عدد الدروس: {{ course.total_lessons }}</small>
+                            <br>
+                            <small class="text-muted">المدة: {{ course.total_hours }} ساعة</small>
+                        </p>
+                        <a href="{% url 'enroll_course' course.pk %}" class="btn btn-success">التسجيل في الدورة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>لا توجد دورات متاحة حالياً.</p>
+    {% endif %}
+</div>
+{% endblock %}

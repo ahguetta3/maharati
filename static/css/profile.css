@@ -1,0 +1,213 @@
+/* Profile Page Styles */
+.profile-page {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+/* Avatar in navbar */
+.avatar-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e9ecef;
+}
+
+/* Profile Sidebar */
+.profile-sidebar {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.profile-image {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-image img.rounded-circle {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.change-photo-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.change-photo-btn:hover {
+    background: #0056b3;
+    transform: scale(1.1);
+}
+
+/* Profile Navigation */
+.profile-nav .nav-link {
+    padding: 12px 15px;
+    color: #495057;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.profile-nav .nav-link:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.profile-nav .nav-link.active {
+    background-color: #e7f1ff;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.profile-nav .nav-link i {
+    margin-left: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Profile Content */
+.profile-content {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.profile-form .form-control {
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.profile-form .form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Current Courses Section */
+.current-courses .course-card {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.current-courses .course-card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.current-courses .course-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.current-courses .course-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-left: 15px;
+}
+
+.current-courses .course-info h6 {
+    margin: 0 0 5px 0;
+    font-weight: 600;
+}
+
+.current-courses .course-progress {
+    margin: 15px 0;
+}
+
+.current-courses .progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+}
+
+.current-courses .progress-bar {
+    background-color: #28a745;
+}
+
+.current-courses .course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.current-courses .course-stats {
+    display: flex;
+    gap: 15px;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.current-courses .course-action .btn {
+    padding: 5px 15px;
+    font-size: 0.9rem;
+}
+
+.course-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.badge-progress {
+    background-color: #e8f5e9;
+    color: #28a745;
+}
+
+.badge-new {
+    background-color: #e3f2fd;
+    color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .profile-sidebar {
+        margin-bottom: 20px;
+    }
+    
+    .profile-image img.rounded-circle {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .profile-image img.rounded-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-content {
+        padding: 15px;
+    }
+}
