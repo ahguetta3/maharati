@@ -1,7 +1,6 @@
 # مهارتي - منصة التعلم الرقمي العربية 
-![Uploading f.png…]()
 
-
+![f](https://github.com/user-attachments/assets/3efca550-b2d0-41b2-a240-ff753fa02bc6)
 
 ## عن مهارتي 
 
